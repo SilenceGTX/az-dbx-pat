@@ -1,4 +1,5 @@
 use std::error::Error;
+use std::process::exit;
 use reqwest::header::{HeaderMap, HeaderValue, AUTHORIZATION, CONTENT_TYPE};
 use serde::{Deserialize, Serialize};
 use tokio;
@@ -139,11 +140,20 @@ async fn main() {
             let url = sub_m.value_of("url").unwrap();
             let lifetime = *sub_m.get_one::<i32>("lifetime").expect("If 'lifetime' is not provided, it will use default value (3600s)");
             
-            let pat = generate_dbx_pat(url, lifetime).await.unwrap();
-            println!("Azure Databricks PAT: {}", pat);
+            match generate_dbx_pat(url, lifetime).await {
+                Ok(pat) => {
+                    println!("PAT: {}", pat);
+                    exit(0);
+                },
+                Err(e) => {
+                    eprintln!("Error generating PAT: {}", e);
+                    exit(1);
+                }
+            }
         },
         _ => {
             println!("Unknown command or no command entered.");
+            exit(1);
         }
     }
 }
