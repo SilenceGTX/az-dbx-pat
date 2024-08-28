@@ -142,7 +142,7 @@ async fn main() {
             
             match generate_dbx_pat(url, lifetime).await {
                 Ok(pat) => {
-                    println!("PAT: {}", pat);
+                    println!("{}", pat);
                     exit(0);
                 },
                 Err(e) => {
