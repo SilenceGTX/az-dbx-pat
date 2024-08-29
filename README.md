@@ -2,6 +2,10 @@
 
 az-dbx-pat is a command line tool to generate Personal Access Tokens (PAT) for Azure Databricks.
 
+## Installation
+For Linux system, put the binary file `az-dbx-pat` in `/usr/local/bin` or any other directory in your PATH.
+For Windows system, put the binary file `az-dbx-pat.exe` in a directory in your PATH.
+
 ## How to use
 Please ensure you have performed `az login` or set up relevant environment variables to authenticate with Azure first.  
 Then simply run the following command to generate a PAT for Azure Databricks:
